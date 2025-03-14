@@ -1,20 +1,26 @@
-const authorListElements = document.querySelector(`.author__list`);
+const authorListElements = document.querySelector(`.book-list`);
 const author = localStorage.getItem("author");
 
-async function onSearchChange(event) {
-    const author = event.target.value
-    renderAuth(title);
-}
-
-async function renderAuth(title) {
-    const auth = await fetch(`https://openlibrary.org/search.json?author=${author}`)
+async function renderAuth() {
+    const title = document.querySelector(`.book__search--temp`).value
+    const auth = await fetch(`https://openlibrary.org/search.json?author =${title}`)
     const authData = await auth.json();
-    authortListElements.innerHTML = authData.map(auth => authHTML(auth)).join('');
+    const result = authData.docs
+    console.log(result);
+    authorListElements.innerHTML = result.map(item => authHTML(item)).join('');
+    
+    
 }
 
-function authHTML(auth) {
-    return
-    //not sure what to put here
-}
+renderAuth();
 
-renderAuth(title);
+function authHTML(item) {
+    return `
+    <div class="book__title">
+            ${item.author_name}
+          </div>
+          <p class="book__body">
+            Book Body
+          </p>
+    `
+}
