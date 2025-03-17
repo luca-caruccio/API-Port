@@ -2,9 +2,10 @@ const bookListElements = document.querySelector(`.book-list`);
 
 async function main() {
     const books = await fetch("https://openlibrary.org/search.json")
-    const authors = await fetch("https://openlibrary.org/search.json?author=${author}")
-    const booksData = await books.json();
-        bookListElements = booksData
+    const authors = await fetch("https://www.omdbapi.com/?apikey=4d3b95cb&s=fast")
+    const booksData = await authors.json();
+    console.log(booksData);
+        bookListElements.innerHTML = booksData
         .map((book) => bookHTML(book)).join("");
     
 }
